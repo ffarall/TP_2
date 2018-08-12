@@ -47,7 +47,7 @@ int draw_mandelbrot(complexPlane_n plane, int maxIterations)
 			{
 				al_put_pixel(i, j, al_map_rgb(0, 0, 0));
 			}
-			else if (data.iterations >= (data.maxIterations - 235))
+			else if (data.iterations >= (data.maxIterations - EDGE))
 			{
 				al_put_pixel(i, j, al_map_rgb(255, 255, 255));
 			}
@@ -77,7 +77,11 @@ int draw_mandelbrot(complexPlane_n plane, int maxIterations)
 int
 is_mandelbrot(_Dcomplex Zn, mandelbrotData_n *data)
 {
+#if CLASSIC_MANDELBROT
+	if (mand_diverges(Zn, 2))
+#else
 	if (mand_diverges(Zn, max(fabs(creal(data->plane.Zf) - creal(data->plane.Z0)), fabs(cimag(data->plane.Zf) - cimag(data->plane.Z0)))))
+#endif
 	{
 		return 0;
 	}

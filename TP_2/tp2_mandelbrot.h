@@ -16,6 +16,8 @@ DEFINES
 #define ERROR -1
 #define DIS_WIDTH 600
 #define DIS_HEIGHT 600
+#define EDGE 235				// Modify this to clarify the edges of the Mandelbrot.
+#define CLASSIC_MANDELBROT 0	// Set to 1 if you want to evaluate the complex numbers according to the classic Mandelbrot Set (module < 2)
 
 /*****************************************
 TYPEDEFS
@@ -23,7 +25,7 @@ TYPEDEFS
 typedef struct
 {
 	_Dcomplex Z0;
-	_Dcomplex Zf;	// Vértices del plano complejo.
+	_Dcomplex Zf;	// Plane vertex.
 } complexPlane_n;
 
 typedef struct
