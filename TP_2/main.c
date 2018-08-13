@@ -4,17 +4,12 @@
 #include "callback.h"
 #include <math.h>
 #include "fun_fractals.h"
+#include "liballegro.h"
 #include "uniforme.h"
 
 int
 main(int argc, char *argv[])
 {
-	/*complexPlane_n plane = { {-2, -1.5}, {2, 1.5} };
-	if (draw_mandelbrot(plane, 256))
-	{
-		return -1;
-	}*/
-
 	fractalData_n data = { NULL, NAN, NAN, NAN, NAN, NAN, NAN, NAN, NAN, NAN, 0 }; // Se inicializa con valores que los datos no pueden tomar para luego hacer su comparación y validación
 	if (parseCmdLine(argc, argv, cmd_line_interpreter, &data) == ERROR)
 	{
@@ -34,7 +29,7 @@ main(int argc, char *argv[])
 				data.leftAngle = data.leftAngle * ALLEGRO_PI / 180;
 				data.rightAngle = -data.rightAngle * ALLEGRO_PI / 180;
 				double b = (sin(data.rightAngle) / sin(delta)) * c;
-				triangle(100, 700, 100 + data.lStart, 700, 100 + (data.lStart*(sin(data.rightAngle)*cos(data.leftAngle)) / sin(c)), 700 - (data.lStart *(sin(data.rightAngle)*sin(data.leftAngle)) / sin(c)), data.lEnd);
+				triangle(100, 700, 100 + data.lStart * DISPLAY_CONST, 700, 100 + (data.lStart * DISPLAY_CONST *(sin(data.rightAngle)*cos(data.leftAngle)) / sin(c)), 700 - (data.lStart* DISPLAY_CONST *(sin(data.rightAngle)*sin(data.leftAngle)) / sin(c)), data.lEnd);
 				
 				printf("Para salir del programa presione 'q' y luego ENTER.\n");
 				while (getchar() != 'q')

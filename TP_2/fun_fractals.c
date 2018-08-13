@@ -1,12 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#define _USE_MATH_DEFINES  
-#include <math.h>  
-#include <allegro5\allegro.h>
-#include <allegro5\allegro_primitives.h>
 #include "fun_fractals.h"
-
-#define N_LADOS 8
 
 int fun_octagon(double x, double y, double l, double lEnd, double lConstant)
 {

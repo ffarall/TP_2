@@ -11,7 +11,15 @@ cmd_line_interpreter(char *key, char *value, void *data)
 		{
 			if (valid_type(value))
 			{
-				fracData->type = value;
+				if (fracData->type == NULL)
+				{
+					fracData->type = value;
+				}
+				else
+				{
+					fracData->errorType = ERR_OVERWRITE;
+					ret = 0;
+				}
 			}
 			else
 			{
@@ -31,7 +39,15 @@ cmd_line_interpreter(char *key, char *value, void *data)
 				double lStart = strtod(value, NULL);
 				if (valid_lStart(lStart))
 				{
-					fracData->lStart = lStart;
+					if (isnan(fracData->lStart))
+					{
+						fracData->lStart = lStart;
+					}
+					else
+					{
+						fracData->errorType = ERR_OVERWRITE;
+						ret = 0;
+					}
 				}
 				else
 				{
@@ -52,7 +68,18 @@ cmd_line_interpreter(char *key, char *value, void *data)
 				double lEnd = strtod(value, NULL);
 				if (valid_lEnd(lEnd))
 				{
-					fracData->lEnd = lEnd;
+					if (valid_lStart(lEnd))
+					{
+						if (isnan(fracData->lEnd))
+						{
+							fracData->lEnd = lEnd;
+						}
+						else
+						{
+							fracData->errorType = ERR_OVERWRITE;
+							ret = 0;
+						}
+					}
 				}
 				else
 				{
@@ -73,7 +100,15 @@ cmd_line_interpreter(char *key, char *value, void *data)
 				double lConstant = strtod(value, NULL);
 				if (valid_lConstant(lConstant))
 				{
-					fracData->lConstant = lConstant;
+					if (isnan(fracData->lConstant))
+					{
+						fracData->lConstant = lConstant;
+					}
+					else
+					{
+						fracData->errorType = ERR_OVERWRITE;
+						ret = 0;
+					}
 				}
 				else
 				{
@@ -94,7 +129,15 @@ cmd_line_interpreter(char *key, char *value, void *data)
 				double angle = strtod(value, NULL);
 				if (valid_angle(angle))
 				{
-					fracData->leftAngle = angle;
+					if (isnan(fracData->leftAngle))
+					{
+						fracData->leftAngle = angle;
+					}
+					else
+					{
+						fracData->errorType = ERR_OVERWRITE;
+						ret = 0;
+					}
 				}
 				else
 				{
@@ -115,7 +158,15 @@ cmd_line_interpreter(char *key, char *value, void *data)
 				double angle = strtod(value, NULL);
 				if (valid_angle(angle))
 				{
-					fracData->rightAngle = angle;
+					if (isnan(fracData->rightAngle))
+					{
+						fracData->rightAngle = angle;
+					}
+					else
+					{
+						fracData->errorType = ERR_OVERWRITE;
+						ret = 0;
+					}
 				}
 				else
 				{
@@ -133,7 +184,15 @@ cmd_line_interpreter(char *key, char *value, void *data)
 			}
 			else
 			{
-				fracData->x0 = strtod(value, NULL);
+				if (isnan(fracData->rightAngle))
+				{
+					fracData->x0 = strtod(value, NULL);
+				}
+				else
+				{
+					fracData->errorType = ERR_OVERWRITE;
+					ret = 0;
+				}
 			}
 		}
 		else if (!str_case_cmp(key, "xf"))
@@ -145,7 +204,15 @@ cmd_line_interpreter(char *key, char *value, void *data)
 			}
 			else
 			{
-				fracData->xf = strtod(value, NULL);
+				if (isnan(fracData->rightAngle))
+				{
+					fracData->xf = strtod(value, NULL);
+				}
+				else
+				{
+					fracData->errorType = ERR_OVERWRITE;
+					ret = 0;
+				}
 			}
 		}
 		else if (!str_case_cmp(key, "y0"))
@@ -157,7 +224,15 @@ cmd_line_interpreter(char *key, char *value, void *data)
 			}
 			else
 			{
-				fracData->y0 = strtod(value, NULL);
+				if (isnan(fracData->rightAngle))
+				{
+					fracData->y0 = strtod(value, NULL);
+				}
+				else
+				{
+					fracData->errorType = ERR_OVERWRITE;
+					ret = 0;
+				}
 			}
 		}
 		else if (!str_case_cmp(key, "yf"))
@@ -169,7 +244,15 @@ cmd_line_interpreter(char *key, char *value, void *data)
 			}
 			else
 			{
-				fracData->yf = strtod(value, NULL);
+				if (isnan(fracData->rightAngle))
+				{
+					fracData->yf = strtod(value, NULL);
+				}
+				else
+				{
+					fracData->errorType = ERR_OVERWRITE;
+					ret = 0;
+				}
 			}
 		}
 		else
@@ -215,7 +298,7 @@ void str_to_lwr(char * str)
 
 int valid_type(char * value)
 {
-	return (!str_case_cmp(value, "uniforme") || !str_case_cmp(value, "octogono") || !str_case_cmp(value, "	mandelbrot"));
+	return (!str_case_cmp(value, "uniforme") || !str_case_cmp(value, "octogono") || !str_case_cmp(value, "mandelbrot"));
 }
 
 int valid_lStart(double lStart)
@@ -245,8 +328,7 @@ int valid_data(fractalData_n * data)
 	{
 		if (!valid_mandelbrot(data))
 		{
-			printf("%d %d %d %d\n", data->x0, data->y0, data->xf, data->yf);
-			fprintf(stderr, "Los parametros ingresados son incorrectos.\n El Mandelbrot recibe x0, y0, xf, e yf.\n");
+			fprintf(stderr, "Los parametros ingresados son incorrectos.\n El Mandelbrot recibe x0, y0, xf, e yf, teniendo en cuenta que el punto final debe ser distinto del inicial en ambas coordenadas.\n");
 			ret = 0;
 		}
 	}
@@ -254,7 +336,7 @@ int valid_data(fractalData_n * data)
 	{
 		if (!valid_octogono(data))
 		{
-			fprintf(stderr, "Los parametros ingresados son incorrectos.\n El Octogono recibe lStart, lEnd, lConstant, x0, y0, xf, e yf.\n");
+			fprintf(stderr, "Los parametros ingresados son incorrectos.\n El Octogono recibe lStart, lEnd, lConstant, x0 e y0, teniendo en cuenta que las coordenadas deben estar en el rango [%d,%d]x[%d,%d].\n", 0, OCTOGON_DISP_WIDTH, 0, OCTOGON_DISP_HEIGHT);
 			ret = 0;
 		}
 	}
@@ -262,7 +344,7 @@ int valid_data(fractalData_n * data)
 	{
 		if (!valid_uniforme(data))
 		{
-			fprintf(stderr, "Los parametros ingresados son incorrectos.\n El Uniforme recibe lStart, lEnd, lConstant, leftAngle, rightAngle, x0, y0, xf, e yf.\n");
+			fprintf(stderr, "Los parametros ingresados son incorrectos.\n El Uniforme recibe lStart, lEnd, leftAngle y rightAngle.\n");
 			ret = 0;
 		}
 	}
@@ -293,6 +375,7 @@ void how_to(int error)
 	case ERR_ALPHA_LEFT_ANGLE: fprintf(stderr, "Se ingresaron caracteres invalidos en leftAngle.\nEl programa recibe los siguientes parametros por linea de comandos:\n-type {UNIFORME, OCTOGONO, MANDELBROT}\n-lStart (0...100]\n-lEnd (0...100).\n-lConstant (0...1).\n-leftAngle [-90...90].\n-rightAngle [-90...90].\n-x0, y0, xf, yf (pueden tomar valores flotantes).\n"); break;
 	case ERR_ALPHA_RIGHT_ANGLE: fprintf(stderr, "Se ingresaron caracteres invalidos en rightAngle.\nEl programa recibe los siguientes parametros por linea de comandos:\n-type {UNIFORME, OCTOGONO, MANDELBROT}\n-lStart (0...100]\n-lEnd (0...100).\n-lConstant (0...1).\n-leftAngle [-90...90].\n-rightAngle [-90...90].\n-x0, y0, xf, yf (pueden tomar valores flotantes).\n"); break;
 	case ERR_ALPHA_COORDINATE: fprintf(stderr, "Se ingresaron caracteres invalidos en alguna de las coordenadas.\nEl programa recibe los siguientes parametros por linea de comandos:\n-type {UNIFORME, OCTOGONO, MANDELBROT}\n-lStart (0...100]\n-lEnd (0...100).\n-lConstant (0...1).\n-leftAngle [-90...90].\n-rightAngle [-90...90].\n-x0, y0, xf, yf (pueden tomar valores flotantes).\n"); break;
+	case ERR_OVERWRITE: fprintf(stderr, "Se ingresaron parametros por duplicado.\nEl programa recibe los siguientes parametros por linea de comandos:\n-type {UNIFORME, OCTOGONO, MANDELBROT}\n-lStart (0...100]\n-lEnd (0...100).\n-lConstant (0...1).\n-leftAngle [-90...90].\n-rightAngle [-90...90].\n-x0, y0, xf, yf (pueden tomar valores flotantes).\n"); break;
 	}
 }
 
@@ -312,15 +395,19 @@ int strisalpha(char * str)
 
 int valid_mandelbrot(fractalData_n * data)
 {
-	return (isnan(data->lStart) && isnan(data->lEnd) && isnan(data->lConstant) && isnan(data->leftAngle) && isnan(data->rightAngle) && !isnan(data->x0) && !isnan(data->y0) && !isnan(data->xf) && !isnan(data->yf));
+	int areArgsValid = (isnan(data->lStart) && isnan(data->lEnd) && isnan(data->lConstant) && isnan(data->leftAngle) && isnan(data->rightAngle) && !isnan(data->x0) && !isnan(data->y0) && !isnan(data->xf) && !isnan(data->yf));
+	int areCoordenatesSame = (data->x0 == data->xf || data->y0 == data->yf);
+	return (areArgsValid && !areCoordenatesSame);
 }
 
 int valid_octogono(fractalData_n * data)
 {
-	return (!isnan(data->lStart) && !isnan(data->lEnd) && !isnan(data->lConstant) && isnan(data->leftAngle) && isnan(data->rightAngle) && !isnan(data->x0) && !isnan(data->y0) && isnan(data->xf) && isnan(data->yf));
+	int areArgsValid = (!isnan(data->lStart) && !isnan(data->lEnd) && !isnan(data->lConstant) && isnan(data->leftAngle) && isnan(data->rightAngle) && !isnan(data->x0) && !isnan(data->y0) && isnan(data->xf) && isnan(data->yf));
+	int areCoordenatesInRange = (data->x0 >= 0 && data->x0 <= OCTOGON_DISP_WIDTH && data->y0 >= 0 && data->y0 <= OCTOGON_DISP_HEIGHT);
+	return (areArgsValid && areCoordenatesInRange);
 }
 
 int valid_uniforme(fractalData_n * data)
 {
-	return (!isnan(data->lStart) && !isnan(data->lEnd) && !isnan(data->lConstant) && !isnan(data->leftAngle) && !isnan(data->rightAngle) && !isnan(data->x0) && !isnan(data->y0) && !isnan(data->xf) && !isnan(data->yf));
+	return (!isnan(data->lStart) && !isnan(data->lEnd) && isnan(data->lConstant) && !isnan(data->leftAngle) && !isnan(data->rightAngle) && isnan(data->x0) && isnan(data->y0) && isnan(data->xf) && isnan(data->yf));
 }

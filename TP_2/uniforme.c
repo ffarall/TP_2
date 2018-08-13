@@ -1,6 +1,11 @@
+#include "uniforme.h"
+
+
+
 int triangle(float x1, float y1, float x2, float y2, float x3, float y3, float lfinal)
 {
-	al_draw_triangle(x1, y1, x2, y2, x3, y3, al_map_rgb(71, 225, 12), 1); // cambiar color aca	
+	srand(time(NULL));
+	al_draw_triangle(x1, y1, x2, y2, x3, y3, al_map_rgb(rand()%256, rand()%256, rand()%256), 1); // cambiar color aca	
 	al_flip_display();
 	al_rest(0.05);
 	int tempx = (x1 + x2 + x3) / 3.0, tempy = ((y1 + y2 + y3) / 3.0);
@@ -18,9 +23,9 @@ int triangle(float x1, float y1, float x2, float y2, float x3, float y3, float l
 }
 
 
-bool validarlargos(float centrox, float centroy, float x1, float y1, float x2, float y2, float x3, float y3, float lend)
+int validarlargos(float centrox, float centroy, float x1, float y1, float x2, float y2, float x3, float y3, float lend)
 {
-	bool rta = 0;
+	int rta = 0;
 	float aux1 = x1 - centrox;
 	float aux2 = y1 - centroy;
 	if (((aux1*aux1) + (pow(aux2, 2))) <= pow(lend, 2))

@@ -27,6 +27,9 @@ DEFINES
 #define ERR_ALPHA_LEFT_ANGLE 268
 #define ERR_ALPHA_RIGHT_ANGLE 269
 #define ERR_ALPHA_COORDINATE 270
+#define ERR_OVERWRITE 271
+#define OCTOGON_DISP_WIDTH 800
+#define OCTOGON_DISP_HEIGHT 800
 
 
 /*****************************************
