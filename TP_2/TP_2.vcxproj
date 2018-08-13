@@ -73,6 +73,8 @@
     <Allegro_AddonImage>true</Allegro_AddonImage>
     <Allegro_AddonFont>true</Allegro_AddonFont>
     <Allegro_LibraryType>DynamicDebug</Allegro_LibraryType>
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
+    <Allegro_AddonColor>true</Allegro_AddonColor>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -120,12 +122,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\TP_1\TP_1\TP_1\parse_cmd_line.c" />
+    <ClCompile Include="callback.c" />
+    <ClCompile Include="fun_fractals.c" />
+    <ClCompile Include="liballegro.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="tp2_mandelbrot.c" />
+    <ClCompile Include="uniforme.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\TP_1\TP_1\TP_1\parse_cmd_line.h" />
+    <ClInclude Include="callback.h" />
+    <ClInclude Include="fun_fractals.h" />
+    <ClInclude Include="liballegro.h" />
     <ClInclude Include="tp2_mandelbrot.h" />
+    <ClInclude Include="uniforme.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

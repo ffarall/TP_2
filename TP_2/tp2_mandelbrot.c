@@ -46,20 +46,22 @@ int draw_mandelbrot(complexPlane_n plane, int maxIterations)
 			if (is_mandelbrot(start, &data))
 			{
 				al_put_pixel(i, j, al_map_rgb(0, 0, 0));
+				al_flip_display();
 			}
 			else if (data.iterations >= (data.maxIterations - EDGE))
 			{
 				al_put_pixel(i, j, al_map_rgb(255, 255, 255));
+				al_flip_display();
 			}
 			else
 			{
 				al_put_pixel(i, j, al_map_rgb(50, 50, 255/data.iterations));
+				al_flip_display();
 			}
 		}
 		data.Zi._Val[1] = plane.Z0._Val[1];
 		data.Zi._Val[0] += dx;
 	}
-	al_flip_display();
 
 	printf("Para salir del programa presione 'q' y luego ENTER.\n");
 

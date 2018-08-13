@@ -18,10 +18,22 @@
     <ClCompile Include="tp2_mandelbrot.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\TP_1\TP_1\TP_1\parse_cmd_line.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.c">
+    <ClCompile Include="callback.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="uniforme.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fun_fractals.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="liballegro.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -30,6 +42,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\TP_1\TP_1\TP_1\parse_cmd_line.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="callback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="uniforme.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fun_fractals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="liballegro.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

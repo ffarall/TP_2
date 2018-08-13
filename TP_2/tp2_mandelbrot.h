@@ -13,9 +13,9 @@ INCLUDES
 /*****************************************
 DEFINES
 *****************************************/
-#define ERROR -1
-#define DIS_WIDTH 600
-#define DIS_HEIGHT 600
+#define	MAX_ITERATIONS 256
+#define DIS_WIDTH 400
+#define DIS_HEIGHT 300
 #define EDGE 235				// Modify this to clarify the edges of the Mandelbrot.
 #define CLASSIC_MANDELBROT 0	// Set to 1 if you want to evaluate the complex numbers according to the classic Mandelbrot Set (module < 2)
 
