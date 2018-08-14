@@ -184,7 +184,7 @@ cmd_line_interpreter(char *key, char *value, void *data)
 			}
 			else
 			{
-				if (isnan(fracData->rightAngle))
+				if (isnan(fracData->x0))
 				{
 					fracData->x0 = strtod(value, NULL);
 				}
@@ -204,7 +204,7 @@ cmd_line_interpreter(char *key, char *value, void *data)
 			}
 			else
 			{
-				if (isnan(fracData->rightAngle))
+				if (isnan(fracData->xf))
 				{
 					fracData->xf = strtod(value, NULL);
 				}
@@ -224,7 +224,7 @@ cmd_line_interpreter(char *key, char *value, void *data)
 			}
 			else
 			{
-				if (isnan(fracData->rightAngle))
+				if (isnan(fracData->y0))
 				{
 					fracData->y0 = strtod(value, NULL);
 				}
@@ -244,7 +244,7 @@ cmd_line_interpreter(char *key, char *value, void *data)
 			}
 			else
 			{
-				if (isnan(fracData->rightAngle))
+				if (isnan(fracData->yf))
 				{
 					fracData->yf = strtod(value, NULL);
 				}
@@ -344,7 +344,7 @@ int valid_data(fractalData_n * data)
 	{
 		if (!valid_uniforme(data))
 		{
-			fprintf(stderr, "Los parametros ingresados son incorrectos.\n El Uniforme recibe lStart, lEnd, leftAngle y rightAngle.\n");
+			fprintf(stderr, "Los parametros ingresados son incorrectos.\n El Uniforme recibe lStart, lEnd, leftAngle, rightAngle, x0 e y0.\n");
 			ret = 0;
 		}
 	}
@@ -409,5 +409,5 @@ int valid_octogono(fractalData_n * data)
 
 int valid_uniforme(fractalData_n * data)
 {
-	return (!isnan(data->lStart) && !isnan(data->lEnd) && isnan(data->lConstant) && !isnan(data->leftAngle) && !isnan(data->rightAngle) && isnan(data->x0) && isnan(data->y0) && isnan(data->xf) && isnan(data->yf));
+	return (!isnan(data->lStart) && !isnan(data->lEnd) && isnan(data->lConstant) && !isnan(data->leftAngle) && !isnan(data->rightAngle) && !isnan(data->x0) && !isnan(data->y0) && isnan(data->xf) && isnan(data->yf));
 }

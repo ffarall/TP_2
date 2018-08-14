@@ -29,7 +29,7 @@ main(int argc, char *argv[])
 				data.leftAngle = data.leftAngle * ALLEGRO_PI / 180;
 				data.rightAngle = -data.rightAngle * ALLEGRO_PI / 180;
 				double b = (sin(data.rightAngle) / sin(delta)) * c;
-				triangle(100, 700, 100 + data.lStart * DISPLAY_CONST, 700, 100 + (data.lStart * DISPLAY_CONST *(sin(data.rightAngle)*cos(data.leftAngle)) / sin(c)), 700 - (data.lStart* DISPLAY_CONST *(sin(data.rightAngle)*sin(data.leftAngle)) / sin(c)), data.lEnd);
+				triangle(data.x0, data.y0, data.x0 + data.lStart * DISPLAY_CONST, data.y0, data.x0 + (data.lStart * DISPLAY_CONST *(sin(data.rightAngle)*cos(data.leftAngle)) / sin(c)), data.y0 - (data.lStart* DISPLAY_CONST *(sin(data.rightAngle)*sin(data.leftAngle)) / sin(c)), data.lEnd);
 				
 				printf("Para salir del programa presione 'q' y luego ENTER.\n");
 				while (getchar() != 'q')

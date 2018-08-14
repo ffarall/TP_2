@@ -34,7 +34,7 @@ int draw_mandelbrot(complexPlane_n plane, int maxIterations)
 		fprintf(stderr, "Could not initialize Allegro.\n");
 		return -1;
 	}
-	al_clear_to_color(al_map_rgb(0, 0, 0));
+	al_clear_to_color(al_map_rgb(10, 10, 10));
 
 	al_set_target_backbuffer(display);
 	for (i = 0; i < DIS_WIDTH; i++)
